@@ -1,3 +1,6 @@
+**************** Change column name **********************
+EXEC sp_rename 'Attendance.Employeecode', 'EmpCode', 'COLUMN';
+
 1. Select all employees with salary > 50,000.
 > Select * from Empsal where takehome > 50000
 
