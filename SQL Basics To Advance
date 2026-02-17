@@ -1,4 +1,5 @@
 **************** Change column name **********************
+
 EXEC sp_rename 'Attendance.Employeecode', 'EmpCode', 'COLUMN';
 
 1. Select all employees with salary > 50,000.
@@ -7,22 +8,22 @@ EXEC sp_rename 'Attendance.Employeecode', 'EmpCode', 'COLUMN';
 2. Find employees from 'IT' department.
 > select * from EmpSal where  Deptcode = 'E04' ---/IT
 > select * from EmpSal where Deptcode=(
-select departmentcode from EmpDeptmaster where departmentname ='IT')
+  select departmentcode from EmpDeptmaster where departmentname ='IT')
 
 3. Sort employees by salary descending.
 > Select * from EmpSal 
-order by TakeHome desc
+  order by TakeHome desc
 
 4. Find employees whose name starts with 'A'.
 > select * from EmpSal where Empname like 'A%'
 
 5. Find employees whose salary is between 30k and 60k.
 > select * from EmpSal where TakeHome between 30000 and 60000
-order by TakeHome Asc
+  order by TakeHome Asc
 
 6. Difference between WHERE and HAVING?
 > Select * from EmpSal where Deduction >= 5000
 
 > select Deptcode,Count(*) Total from Empsal 
-group by Deptcode 
-having Count(*) >2
+  group by Deptcode 
+  having Count(*) >2
