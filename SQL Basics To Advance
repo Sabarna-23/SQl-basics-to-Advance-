@@ -1,7 +1,5 @@
-**************** Change column name **********************
-
-EXEC sp_rename 'Attendance.Employeecode', 'EmpCode', 'COLUMN';
-
+                                                     **************** Change column name **********************
+                                                   EXEC sp_rename 'Attendance.Employeecode', 'EmpCode', 'COLUMN';
 1. Select all employees with salary > 50,000.
 > Select * from Empsal where takehome > 50000
 
@@ -11,8 +9,7 @@ EXEC sp_rename 'Attendance.Employeecode', 'EmpCode', 'COLUMN';
   select departmentcode from EmpDeptmaster where departmentname ='IT')
 
 3. Sort employees by salary descending.
-> Select * from EmpSal 
-  order by TakeHome desc
+> Select * from EmpSal order by TakeHome desc
 
 4. Find employees whose name starts with 'A'.
 > select * from EmpSal where Empname like 'A%'
@@ -23,7 +20,55 @@ EXEC sp_rename 'Attendance.Employeecode', 'EmpCode', 'COLUMN';
 
 6. Difference between WHERE and HAVING?
 > Select * from EmpSal where Deduction >= 5000
-
 > select Deptcode,Count(*) Total from Empsal 
   group by Deptcode 
   having Count(*) >2
+
+7. Count employees per department.
+> select Deptcode,count(*) Total_Emp from Attendance group by Deptcode
+
+8. Find departments having more than 5 employees.
+> select Deptcode,count(*) Total_Emp from Attendance
+  group by Deptcode having count(*)>5
+
+9. Find second highest salary (basic method).
+> select max(takehome) from EmpSal where takehome <(select max(takehome) from EmpSal)
+
+10. Find department with highest average salary.
+> Select Deptcode,avg(takehome) avgsal from empsal
+  group by Deptcode
+  order by avgsal desc
+
+11. Find duplicate records.
+> select deduction ,count(*) Cnt from empsal
+  group by deduction 
+  having count (*) > 1
+
+12. Get employees whose salary > department average.
+> SELECT EmpId, DeptCode, TakeHome
+  FROM EmpSal e
+  WHERE TakeHome > (
+    SELECT AVG(TakeHome)
+    FROM EmpSal
+    WHERE DeptCode = e.DeptCode
+  )
+  order by Empid asc;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
