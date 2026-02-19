@@ -46,18 +46,49 @@
 
 12. Get employees whose salary > department average.
 > SELECT EmpId, DeptCode, TakeHome
-  FROM EmpSal e
-  WHERE TakeHome > (
+  FROM EmpSal e WHERE TakeHome > 
+  (
     SELECT AVG(TakeHome)
     FROM EmpSal
     WHERE DeptCode = e.DeptCode
   )
   order by Empid asc;
 
+13. Get employee with department name.
+> Select a.Empname,a.Deptcode,b.Departmentname
+  from empsal a inner join [EmpDeptmaster] b
+  on a.DeptCode=b.DepartmentCode:
+
+14. Difference between INNER and LEFT JOIN RIGHT JOIN .
+---------------- INNER JOIN -------------------
+> Select a.CustomerId,a.CustomerNAme,a.City,sum(b.Orderamount) Amount
+from Customers A inner join Orders B
+on A.Customerid = B.Customerid
+group by  a.CustomerId,a.CustomerNAmZZa.City
+order by CustomerId desc         ** Only Matching rows
+
+Select a.CustomerId,a.CustomerNAme,a.City,sum(b.Orderamount) Amount
+from Customers A Left join Orders B
+on A.Customerid = B.Customerid
+group by  a.CustomerId,a.CustomerNAme,a.City
+order by CustomerId desc   **  All rows from left table Matching Rows from Right Table 
+
+Select a.CustomerId,a.CustomerNAme,a.City,sum(b.Orderamount) Amount
+from Customers A Right join Orders B
+on A.Customerid = B.Customerid
+group by  a.CustomerId,a.CustomerNAme,a.City
+order by CustomerId desc   **  All rows from Right table Matching Rows from left Table 
 
 
-
-
+15. Join 3 tables example.
+> Select a.CustomerId,a.Customername,a.City,
+  b.Orderid,b.Orderdate,b.Orderamount,b.Orderstatus,C.paymentamount,c.paymentstatus,
+  c.Paymentid,c.Paymentdate,c.Paymentmethod
+  from Customers A left join  ORDERS B
+  on A.CustomerId=B.CustomerId
+  Inner join  payments C
+  on B.Orderid=c.Orderid
+  order by A.customername asc
 
 
 
