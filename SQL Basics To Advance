@@ -90,6 +90,23 @@ order by CustomerId desc   **  All rows from Right table Matching Rows from left
   on B.Orderid=c.Orderid
   order by A.customername asc
 
+16. Find employees with highest salary per department.
+> SELECT Empid,Empname,Deptcode,takehome from empsal e
+  where takehome = (select max(takehome) from empsal where e.DeptCode=DeptCode)
+  ORDER BY Empname ASC
+
+17. Find nth highest salary.
+> DECLARE @N INT = 1; 
+  Select Empid,Empname,Takehome from (
+  select Empid,Empname,takehome,DENSE_RANK () over( order by takehome desc) rnk
+  from empsal) t 
+  where rnk = @N
+
+18. Find employees earning more than average salary.
+> select * from empsal where TakeHome > (select avg(takehome) from empsal)
+
+19. Find employees in same department as 'Rohit'.
+>  select * from empsal where DeptCode = (select DeptCode from empsal where empname like 'Rohit%')
 
 
 
